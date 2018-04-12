@@ -1,0 +1,7 @@
+{
+"Name": "Rocket",
+"StackSize": "3",
+"Price": "125",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/9/95/Rocket_icon.png/revision/latest?cb=20151106061039",
+"ShortName": "rocket.basic"
+}
