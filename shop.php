@@ -87,6 +87,7 @@ color: white;
     color: white;
     padding: 15px 32px;
     text-align: center;
+	font-family: "Arial Black";
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
@@ -112,9 +113,12 @@ if(!isset($_SESSION['steamid'])) {
 
 	 echo'
 	 
-	 <form action="" method="get">
-	 <button name="logout" type="submit" id="disconnect">Logout</button>
-	 </form>
+	 
+	 <br>
+	 
+	<br>
+	<a class="btn" href="inventory.php" id="disconnect">Refund</a>
+	 <button name="logout" type="submit" action="" method="get" id="disconnect">Logout</button>
 	 </form>
 	 <br>
 	 ';
