@@ -14,7 +14,7 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 
-$sql = "SELECT id, steamid, item, amount FROM PLAYERS_ORDERS";
+$sql = "SELECT id, steamid, item, amount FROM players_orders";
 $result = $conn->query($sql);
 $id = 0;
 
