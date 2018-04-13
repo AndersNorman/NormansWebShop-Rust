@@ -144,7 +144,7 @@ if(!isset($_SESSION['steamid'])) {
 	 <br>
 	 
 	<br>
-	 <a class="btn" href="Shop.php" id="disconnect">Shop</a>
+	 <a class="btn" href="shop.php" id="disconnect">Shop</a>
 	 <button name="logout" type="submit" action="" method="get" id="disconnect">Logout</button>
 	 </form>
 	 <br>
