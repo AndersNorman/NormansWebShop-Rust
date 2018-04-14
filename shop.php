@@ -182,7 +182,7 @@ if(!isset($_SESSION['steamid'])) {
 			if($obj["Tab"] == $thetab["Tab"]){
 			echo'<form id="itemframe" style="width: 250" onsubmit="return false;" name="'.$obj["ShortName"].'">
 			 
-			 <font face="verdana" size="4" color="white">item: '.$obj["Name"].'<br><br>
+			 <font face="verdana" size="4" color="white">'.$obj["Name"].'<br><br>
 			  <img src="coin.ico" alt="" width="25" height="25"> '.$obj["Price"].'</img>
 			  
 			  <center>	      <img src="'.$obj["Icon"].'" alt="" width="100" height="100"></img></center><br>
