@@ -1,8 +1,8 @@
 {
-"Name": "Metal ore",
+"Name": "Metal Fragments",
 "StackSize": "1000",
 "Price": "2",
-"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/0/0a/Metal_Ore_icon.png/revision/latest?cb=20151106060814",
-"ShortName": "metal.ore",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/7/74/Metal_Fragments_icon.png/revision/latest?cb=20151106061759",
+"ShortName": "metal.fragments",
 "Tab": "Resources"
 }

@@ -1,0 +1,8 @@
+{
+"Name": "Armored Door",
+"StackSize": "1",
+"Price": "15000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/b/bc/Armored_Door_icon.png/revision/latest/scale-to-width-down/350?cb=20160211201148",
+"ShortName": "door.hinged.toptier",
+"Tab": "Construction"
+}

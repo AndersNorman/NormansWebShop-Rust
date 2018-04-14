@@ -1,0 +1,8 @@
+{
+"Name": "Chainlink Fence",
+"StackSize": "1",
+"Price": "5000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/2/2a/Chainlink_Fence_icon.png/revision/latest/scale-to-width-down/350?cb=20160211201645",
+"ShortName": "wall.frame.fence",
+"Tab": "Construction"
+}

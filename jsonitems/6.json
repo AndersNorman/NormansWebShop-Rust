@@ -1,0 +1,8 @@
+{
+"Name": "Rifle",
+"StackSize": "1",
+"Price": "25000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/8/8d/Semi-Automatic_Rifle_icon.png/revision/latest/scale-to-width-down/350?cb=20160128160721",
+"ShortName": "rifle.semiauto",
+"Tab": "Weapons"
+}

@@ -1,0 +1,8 @@
+{
+"Name": "Pistol",
+"StackSize": "1",
+"Price": "15000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/6/6b/Semi-Automatic_Pistol_icon.png/revision/latest/scale-to-width-down/350?cb=20160211200319",
+"ShortName": "pistol.semiauto",
+"Tab": "Weapons"
+}
