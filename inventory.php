@@ -137,7 +137,7 @@ if(!isset($_SESSION['steamid'])) {
 	
 	echo('<form id="userframe">');
 	echo('<img src="'.$steamprofile['avatarmedium'].'g" alt="User avatar">');
-	 echo('<br><h1><img src="coin.ico" alt="" width="25" height="25"> '.getcoin($steamprofile['steamid']).'</img></h1>');
+	 echo('<br><h1><img src="coin.ico" alt="" width="25" height="25"> <thecoins id="coins"></theitem></img></h1>');
 
 	 echo'
 	 
@@ -156,7 +156,7 @@ if(!isset($_SESSION['steamid'])) {
 	foreach($theitems as $thearray){	
 	$jsonitem = json_decode(getitemjson($thearray[2]),true);
 	$theitemcost = (intval($jsonitem["Price"]) * intval($thearray[3]));
-	echo'<form id="itemframe" style="width: 250" action="refund.php" method="post" name="'.$jsonitem["ShortName"].'">
+		 echo'<form id="itemframe" style="width: 250" onsubmit="return false;" name="'.$jsonitem["ShortName"].'">
 		 
 		 <font face="verdana" size="4" color="white">item: '.$jsonitem["Name"].' X '.$thearray[3].'<br><br>
 	      <img src="coin.ico" alt="" width="25" height="25"> '.$theitemcost.'</img>
@@ -168,7 +168,7 @@ if(!isset($_SESSION['steamid'])) {
 				   <input type="hidden" name="itemname" value="'.$jsonitem["ShortName"].'"/> 
 				   <input type="hidden" name="itemnameid" value="'.$thearray[0].'"/> 
 				   
-				   <center><input type="submit" id="btn" value="Refund"></center>
+				   <center><button onclick="sendrefundrequest('."'".$jsonitem["ShortName"]."'".')" id="btn" value="Refund">Refund</center></button>
 				   </form>
 
 		  <br>
@@ -183,3 +183,58 @@ if(!isset($_SESSION['steamid'])) {
 
 
 ?>
+
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="notify.js"></script>
+
+<script>
+
+	function sendrefundrequest(theitem){
+	var x = document.getElementsByName(theitem)[0].elements.namedItem("itemname").value;
+	var y = document.getElementsByName(theitem)[0].elements.namedItem("itemnameid").value;
+
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+
+		  getcoins();
+		  var thereturnmessage = this.responseText;
+		  
+		  if(thereturnmessage.includes("norman+1")){
+			 		  $.notify("You got a refund without any errors!","success");
+					  var element = document.getElementsByName(theitem)[0];
+					  element.outerHTML = "";
+					  delete element;
+		  }
+		  else{
+			  			 		  $.notify("There was a error!","warn");
+								  
+
+		  }
+		}
+	  };
+	  xhttp.open("POST", "refund.php", true);
+	  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  xhttp.send("itemnameid="+y+"&itemname="+x);
+	}
+
+function getcoins(){
+
+	var xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function() { 
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+				
+			document.getElementById("coins").innerHTML = xmlHttp.responseText;
+		}
+		xmlHttp.open("GET", "getinfo.php?item=coins", true); // true for asynchronous 
+		xmlHttp.send(null);	
+		
+}
+
+	getcoins();
+
+
+</script>

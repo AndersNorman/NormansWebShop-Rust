@@ -93,6 +93,9 @@ color: white;
     font-size: 16px;
 }
  </style>
+ 
+ 
+
 
  
 ';
@@ -109,7 +112,7 @@ if(!isset($_SESSION['steamid'])) {
 	
 	echo('<form id="userframe">');
 	echo('<img src="'.$steamprofile['avatarmedium'].'g" alt="User avatar">');
-	 echo('<br><h1><img src="coin.ico" alt="" width="25" height="25"> '.getcoin($steamprofile['steamid']).'</img></h1>');
+	 echo('<br><h1><img src="coin.ico" alt="" width="25" height="25"><thecoins id="coins"></theitem></img></h1>');
 
 	 echo'
 	 
@@ -120,6 +123,8 @@ if(!isset($_SESSION['steamid'])) {
 	<a class="btn" href="inventory.php" id="disconnect">Refund</a>
 	 <button name="logout" type="submit" action="" method="get" id="disconnect">Logout</button>
 	 </form>
+	 
+	  
 	 <br>
 	 ';
 
@@ -134,7 +139,7 @@ if(!isset($_SESSION['steamid'])) {
 		$myfile = fopen("jsonitems/".$ser, "r") or die("Unable to open file!");
 		$contnet = fread($myfile,filesize("jsonitems/".$ser));
 		 $obj = json_decode($contnet,true);
-		 echo'<form id="itemframe" style="width: 250" action="basket.php" method="post" name="'.$obj["ShortName"].'">
+		 echo'<form id="itemframe" style="width: 250" onsubmit="return false;" name="'.$obj["ShortName"].'">
 		 
 		 <font face="verdana" size="4" color="white">item: '.$obj["Name"].'<br><br>
 	      <img src="coin.ico" alt="" width="25" height="25"> '.$obj["Price"].'</img>
@@ -147,7 +152,7 @@ if(!isset($_SESSION['steamid'])) {
 				   
 				   <input type="hidden" name="itemname" value="'.$obj["ShortName"].'"/> 
 				   
-				   <center><input type="submit" id="btn" value="Purchase"></center>
+				   <center><button onclick="sendpurchaserequest('."'".$obj["ShortName"]."'".')" id="btn" value="Purchase">Purchase</center></button>
 				   </form>
 
 		  <br>
@@ -160,6 +165,11 @@ if(!isset($_SESSION['steamid'])) {
 		}
 	
 	}
+	echo'
+	
+	
+	
+	';
 	
 	
   
@@ -167,3 +177,60 @@ if(!isset($_SESSION['steamid'])) {
 
 
 ?>
+
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="notify.js"></script>
+
+	<script>
+	// Java scripts for seeing money and adding orders!
+	
+
+	function getcoins(){
+
+	var xmlHttp = new XMLHttpRequest();
+		xmlHttp.onreadystatechange = function() { 
+			if (xmlHttp.readyState == 4 && xmlHttp.status == 200)
+				
+			document.getElementById("coins").innerHTML = xmlHttp.responseText;
+		}
+		xmlHttp.open("GET", "getinfo.php?item=coins", true); // true for asynchronous 
+		xmlHttp.send(null);	
+		
+	}
+	
+	function sendpurchaserequest(theitem){
+	var x = document.getElementsByName(theitem)[0].elements.namedItem("itemname").value;
+	var y = document.getElementsByName(theitem)[0].elements.namedItem("amount").value;
+
+	var xhttp = new XMLHttpRequest();
+	  xhttp.onreadystatechange = function() {
+		if (this.readyState == 4 && this.status == 200) {
+
+		  getcoins();
+		  var thereturnmessage = this.responseText;
+		  
+		  if(thereturnmessage.includes("norman+1")){
+			 		  $.notify("You purchased the item without any errors!","success");
+
+		  }
+		  else{
+			  			 		  $.notify("You coldn't buy this item!","warn");
+
+		  }
+		}
+	  };
+	  xhttp.open("POST", "basket.php", true);
+	  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+	  xhttp.send("amount="+y+"&itemname="+x);
+	}
+
+	function sendtext(arg){
+		
+	}
+
+	getcoins();
+	</script>
+	
+

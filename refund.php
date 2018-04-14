@@ -1,71 +1,6 @@
 <?php
 include'settings.php';
 
-echo'
- <body background="background.jpg">
- <style>
- #itemframe{
-	color: brown;
-	display: inline-block;
-    text-align: center;
-
-	
-	background: brown;
-    border-radius: 5px;
-	padding: 10px 20px 10px 20px;
-
-	
- }
- h1{
- color:white;
- }
- #userframe{
-	color: gray;
-	display: inline-block;
-    text-align: center;
-
-	
-	background: brown;
-    border-radius: 5px;
-	  padding: 10px 20px 10px 20px;
-
-	
- }
- #btn {
-  background: #202224;
-  background-image: -webkit-linear-gradient(top, #202224, #2f3438);
-  background-image: -moz-linear-gradient(top, #202224, #2f3438);
-  background-image: -ms-linear-gradient(top, #202224, #2f3438);
-  background-image: -o-linear-gradient(top, #202224, #2f3438);
-  background-image: linear-gradient(to bottom, #202224, #2f3438);
-  -webkit-border-radius: 28;
-  -moz-border-radius: 28;
-  border-radius: 28px;
-  font-family: Arial;
-  color: #ffffff;
-  font-size: 10px;
-  padding: 10px 20px 10px 20px;
-  text-decoration: none;
-}
-h1{
-color: white;	
-}
-
-#disconnect {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-}
- </style>
-
- 
-';
-
 function getinventory($steamid){
 	$orders = array();
 	$conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
@@ -88,7 +23,7 @@ if ($result->num_rows > 0) {
 	  }
     }
 } else {
-    echo "0 results";
+    
 }
 $conn->close();	
 return $orders;
@@ -137,7 +72,6 @@ if ($result->num_rows > 0) {
 	  }
     }
 } else {
-    echo "0 results";
 }
 $conn->close();
 return "0";
@@ -197,8 +131,7 @@ if(isset($_POST["itemname"]) && isset($_POST["itemnameid"]) && isset($_SESSION['
 
 	$itemname = $_POST["itemname"];
 	
-	echo'
-<center><form id="itemframe"><h1>';
+
 
 
 $togive = getprice($_POST["itemnameid"]);
@@ -206,7 +139,6 @@ $currentcoin = getcoin($steamprofile["steamid"]);
 
 
 
-echo("Giving a refund for ".$togive." coins.<br>");
 
 $conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
 						
@@ -219,35 +151,25 @@ $conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
 
 						if ($conn->query($sql) === TRUE) {
 							
-							echo'You have now been given a refund!<br>';
-							echo'Removing item... <br>';
 							deleteitem($_POST["itemnameid"]);
-							echo'Removed item!<br>';
+							echo("norman+1");
 
 
 						} else {
-							
+						  
 						}
 
 						$conn->close();
 
 
 
-echo'<br>Redirecting in 2 seconds.
-<meta http-equiv="refresh" content="2; url=inventory.php" />						
-<h1></form></center>
-';
+
 	
 	
 }
 else{
-echo'
-<center><form id="itemframe"><h1>
-Error!
-<br>Redirecting in 5 seconds.
-<meta http-equiv="refresh" content="5; url=inventory.php" />						
-<h1></form></center>
-';
+echo'norman-1';	
 }
+
 
 ?>
