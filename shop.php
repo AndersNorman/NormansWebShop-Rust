@@ -254,7 +254,7 @@ if(!isset($_SESSION['steamid'])) {
 
 		  }
 		  else{
-			  			 		  $.notify("You coldn't buy this item!","warn");
+			  			 		  $.notify("You couldn't buy this item!","warn");
 
 		  }
 		}
