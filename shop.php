@@ -100,6 +100,9 @@ color: white;
  
 ';
 
+
+
+
 if(!isset($_SESSION['steamid'])) {
 	echo'<center>
 	<a href="?login" class="button" id="disconnect">Login</a>
@@ -133,43 +136,78 @@ if(!isset($_SESSION['steamid'])) {
 	$cdir = scandir("jsonitems",0);
 	$cdir[0] = null;
 	$cdir[1] = null;
+	
+	$theitems = array();
+	$thetabs = array();
+
+	$where = 0;
 	foreach($cdir as $ser){
 		
 		if($ser != null){
 		$myfile = fopen("jsonitems/".$ser, "r") or die("Unable to open file!");
 		$contnet = fread($myfile,filesize("jsonitems/".$ser));
 		 $obj = json_decode($contnet,true);
-		 echo'<form id="itemframe" style="width: 250" onsubmit="return false;" name="'.$obj["ShortName"].'">
+		 $obj["Price"] = intval($obj["Price"]);
+		 $theitems[$where] = $obj;
 		 
-		 <font face="verdana" size="4" color="white">item: '.$obj["Name"].'<br><br>
-	      <img src="coin.ico" alt="" width="25" height="25"> '.$obj["Price"].'</img>
-		  
-		  <center>	      <img src="'.$obj["Icon"].'" alt="" width="100" height="100"></img></center><br>
-		  
-					<center><input type="text" name="amount" value="1" size="2"/></center>
-
-		  		   
-				   
-				   <input type="hidden" name="itemname" value="'.$obj["ShortName"].'"/> 
-				   
-				   <center><button onclick="sendpurchaserequest('."'".$obj["ShortName"]."'".')" id="btn" value="Purchase">Purchase</center></button>
-				   </form>
-
-		  <br>
-		 </font>
-		 
-	
-		
-		 ';
-		
+		$where = $where + 1;
 		}
 	
 	}
-	echo'
+	
+	$cdir = scandir("jsontabs",0);
+	$cdir[0] = null;
+	$cdir[1] = null;
+	
+	foreach($cdir as $ser){
+		
+		if($ser != null){
+		$myfile = fopen("jsontabs/".$ser, "r") or die("Unable to open file!");
+		$contnet = fread($myfile,filesize("jsontabs/".$ser));
+		 $obj = json_decode($contnet,true);
+		 $thetabs[$where] = $obj;
+		 
+		$where = $where + 1;
+		}
+	
+	}
+	
+	usort($theitems, function($a, $b) { //Sort the array using a user defined function
+    return $a["Price"] > $b["Price"] ? -1 : 1; //Compare the scores
+	});
+
+	foreach($thetabs as $thetab){
+		echo'<br><h1><img src="'.$thetab["Icon"].'" alt="" width="64" height="64" style="vertical-align: middle;"></img><span style="vertical-align: middle;">'.$thetab["Tab"].'</h1></span><br>';
+		foreach($theitems as $obj){
+			if($obj["Tab"] == $thetab["Tab"]){
+			echo'<form id="itemframe" style="width: 250" onsubmit="return false;" name="'.$obj["ShortName"].'">
+			 
+			 <font face="verdana" size="4" color="white">item: '.$obj["Name"].'<br><br>
+			  <img src="coin.ico" alt="" width="25" height="25"> '.$obj["Price"].'</img>
+			  
+			  <center>	      <img src="'.$obj["Icon"].'" alt="" width="100" height="100"></img></center><br>
+			  
+						<center><input type="text" name="amount" value="1" size="2"/></center>
+
+					   
+					   
+					   <input type="hidden" name="itemname" value="'.$obj["ShortName"].'"/> 
+					   
+					   <center><button onclick="sendpurchaserequest('."'".$obj["ShortName"]."'".')" id="btn" value="Purchase">Purchase</center></button>
+					   </form>
+
+			  <br>
+			 </font>
+			 
+		
+			
+			 ';
+			}
+			
+		}
+	}
 	
 	
-	
-	';
 	
 	
   
@@ -216,7 +254,7 @@ if(!isset($_SESSION['steamid'])) {
 
 		  }
 		  else{
-			  			 		  $.notify("You couldn't buy this item!","warn");
+			  			 		  $.notify("You coldn't buy this item!","warn");
 
 		  }
 		}
