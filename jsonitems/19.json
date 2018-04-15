@@ -1,0 +1,8 @@
+{
+"Name": "Low Grade Fuel",
+"StackSize": "500",
+"Price": "5",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/2/26/Low_Grade_Fuel_icon.png/revision/latest?cb=20151110002210",
+"ShortName": "lowgradefuel",
+"Tab": "Resources"
+}

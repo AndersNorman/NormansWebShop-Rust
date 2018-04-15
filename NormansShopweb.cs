@@ -24,16 +24,16 @@ namespace Oxide.Plugins
     {
         
         private MySqlConnection connection;
-        private string server = "";
-        private string database = "";
-        private string uid = "";
-        private string password = "";
+        private string server = "173.249.18.193";
+        private string database = "s26_rust";
+        private string uid = "u26_LoN7LLyxoJ";
+        private string password = "QB0yO52UOZhu7BON";
         
-        public int researchmoney = 500;
-        public int bearkillmoney = 250;
-        public int stagerkillmoney = 100;
-        public int lootcratemoney = 5;
-        public int craftmoney = 2;
+        public double researchmoney = 500;
+        public double bearkillmoney = 250;
+        public double stagerkillmoney = 100;
+        public double lootcratemoney = 5;
+        public double craftmoney = 2;
         // The rest of the code and magic
 		
 		    [ChatCommand("coins")]
@@ -57,9 +57,9 @@ namespace Oxide.Plugins
         }
 
 		
-		void addcoin(string uuid,int amount){
-		    int money = 0;
-		    int.TryParse(getcoin(uuid),out money);
+		void addcoin(string uuid,double amount){
+		    double money = 0;
+		    double.TryParse(getcoin(uuid),out money);
 		            string dbConnectionString = string.Format("server={0};uid={1};pwd={2};database={3};", server, uid, password, database);
                  string query = "UPDATE PLAYERS_COINS SET coins='"+(money + amount).ToString()+"' WHERE steamid='"+uuid+"'";
  
@@ -85,7 +85,7 @@ namespace Oxide.Plugins
 		        List<string> itemstoremove = new List<string>();
 		        Item[] sakerna = player.inventory.AllItems();
 
-                 int maxitems = 30;
+                 double maxitems = 30;
                 if(sakerna.Count() >= 30){
                    SendReply(player,"You have no space in you're inventory!"); 
                 }
@@ -282,7 +282,7 @@ namespace Oxide.Plugins
                  
                  if(someValue.ToString() == uuid){
                      
-                     return reader["coins"].ToString();
+                     return reader["coins"].ToString(); 
                      
                      
                  }

@@ -1,0 +1,8 @@
+{
+"Name": "Mining Quarry",
+"StackSize": "1",
+"Price": "75000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/b/b8/Mining_Quarry_icon.png/revision/latest?cb=20151106054421",
+"ShortName": "mining.quarry",
+"Tab": "Construction"
+}

@@ -147,7 +147,7 @@ if(!isset($_SESSION['steamid'])) {
 		$myfile = fopen("jsonitems/".$ser, "r") or die("Unable to open file!");
 		$contnet = fread($myfile,filesize("jsonitems/".$ser));
 		 $obj = json_decode($contnet,true);
-		 $obj["Price"] = intval($obj["Price"]);
+		 $obj["Price"] = doubleval($obj["Price"]);
 		 $theitems[$where] = $obj;
 		 
 		$where = $where + 1;

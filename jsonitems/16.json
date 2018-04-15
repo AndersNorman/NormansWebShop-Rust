@@ -1,0 +1,8 @@
+{
+"Name": "High External Stone Gate",
+"StackSize": "1",
+"Price": "16000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/8/85/High_External_Stone_Gate_icon.png/revision/latest?cb=20160211201341",
+"ShortName": "gates.external.high.stone",
+"Tab": "Construction"
+}

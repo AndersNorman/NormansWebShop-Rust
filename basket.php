@@ -98,16 +98,16 @@ require 'steamauth/steamauth.php';
 if(isset($_POST["amount"]) && isset($_POST["itemname"]) && isset($_SESSION['steamid'])){
 	$amount = $_POST["amount"];
 	$itemname = $_POST["itemname"];
-	if(is_numeric($amount)){
+	if(is_numeric($amount) && !strpos($amount,".")){
 	include ('steamauth/userInfo.php');
 	$jsonitem = getitem($itemname);
 	$coins = getcoin($steamprofile['steamid']);
 	if($jsonitem != null){
 			if($coins != null){
 						
-						$amount = intval($amount);
-						$price = intval($jsonitem["Price"]);
-						$coins = intval($coins);
+						$amount = doubleval($amount);
+						$price = doubleval($jsonitem["Price"]);
+						$coins = doubleval($coins);
 						$total = $amount * $price;
 						if($total > $coins){
 

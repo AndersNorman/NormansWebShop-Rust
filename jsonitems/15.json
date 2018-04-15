@@ -1,0 +1,8 @@
+{
+"Name": "High External Stone Wall",
+"StackSize": "10",
+"Price": "16000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/b/b6/High_External_Stone_Wall_icon.png/revision/latest?cb=20151106060841",
+"ShortName": "wall.external.high.stone",
+"Tab": "Construction"
+}

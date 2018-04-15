@@ -1,0 +1,8 @@
+{
+"Name": "High External Wooden Wall",
+"StackSize": "10",
+"Price": "8000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/9/96/High_External_Wooden_Wall_icon.png/revision/latest?cb=20151106061300",
+"ShortName": "wall.external.high",
+"Tab": "Construction"
+}

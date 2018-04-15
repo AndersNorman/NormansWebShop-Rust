@@ -1,0 +1,8 @@
+{
+"Name": "Stone",
+"StackSize": "1000",
+"Price": "0.1",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/8/85/Stones_icon.png/revision/latest?cb=20150405123145",
+"ShortName": "stones",
+"Tab": "Construction"
+}

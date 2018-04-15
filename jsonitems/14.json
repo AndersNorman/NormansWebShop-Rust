@@ -1,0 +1,8 @@
+{
+"Name": "High External Wooden Gate",
+"StackSize": "1",
+"Price": "8000",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/5/53/High_External_Wooden_Gate_icon.png/revision/latest?cb=20160211200625",
+"ShortName": "gates.external.high.wood",
+"Tab": "Construction"
+}

@@ -1,0 +1,8 @@
+{
+"Name": "Wood",
+"StackSize": "1000",
+"Price": "0.1",
+"Icon": "https://vignette.wikia.nocookie.net/play-rust/images/f/f2/Wood_icon.png/revision/latest?cb=20151106061551",
+"ShortName": "wood",
+"Tab": "Construction"
+}

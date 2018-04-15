@@ -155,7 +155,7 @@ if(!isset($_SESSION['steamid'])) {
 	
 	foreach($theitems as $thearray){	
 	$jsonitem = json_decode(getitemjson($thearray[2]),true);
-	$theitemcost = (intval($jsonitem["Price"]) * intval($thearray[3]));
+	$theitemcost = (doubleval($jsonitem["Price"]) * doubleval($thearray[3]));
 		 echo'<form id="itemframe" style="width: 250" onsubmit="return false;" name="'.$jsonitem["ShortName"].'">
 		 
 		 <font face="verdana" size="4" color="white">item: '.$jsonitem["Name"].' X '.$thearray[3].'<br><br>

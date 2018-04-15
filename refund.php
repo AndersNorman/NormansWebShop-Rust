@@ -91,9 +91,9 @@ $result = $conn->query($sql);
 if ($result->num_rows > 0) {
     // output data of each row
     while($row = $result->fetch_assoc()) {
-    $amount = intval($row["amount"]);
+    $amount = doubleval($row["amount"]);
 	$jsonitem = json_decode(getitemjson($row["item"]),true);
-	$price = intval($jsonitem["Price"]) * $amount;
+	$price = doubleval($jsonitem["Price"]) * $amount;
 	return $price;
 	}
 } else {
