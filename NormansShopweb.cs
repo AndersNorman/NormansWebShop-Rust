@@ -15,6 +15,7 @@ using Rust;
 using MySql.Data;
 using MySql.Data.MySqlClient;
 using UnityEngine;
+using Oxide.Core.Libraries.Covalence;
 namespace Oxide.Plugins
 {
     [Info("NormansShopweb", "Anders Kristoffer Norman", 0.1)]
@@ -24,10 +25,10 @@ namespace Oxide.Plugins
     {
         
         private MySqlConnection connection;
-        private string server = "173.249.18.193";
-        private string database = "s26_rust";
-        private string uid = "u26_LoN7LLyxoJ";
-        private string password = "QB0yO52UOZhu7BON";
+        private string server = "";
+        private string database = "";
+        private string uid = "";
+        private string password = "";
         
         public double researchmoney = 500;
         public double bearkillmoney = 250;
@@ -36,12 +37,39 @@ namespace Oxide.Plugins
         public double craftmoney = 2;
         // The rest of the code and magic
 		
+		
+		void Loaded()
+        {
+            Config.Clear();
+            server = Config["normanmysqlserver"].ToString();
+            database = Config["normanmysqldatabase"].ToString();
+            uid = Config["normanmysqldatabaseuser"].ToString();
+            password = Config["normanmysqldatabasepassword"].ToString();
+            researchmoney = double.Parse(Config["researchmoney"].ToString()); 
+            bearkillmoney=double.Parse(Config["bearkillmoney"].ToString());
+            lootcratemoney=double.Parse(Config["lootcratemoney"].ToString());
+            craftmoney=double.Parse(Config["craftmoney"].ToString());
+            Puts("Config values loaded!"); 
+        }
+
+		
+		
 		    [ChatCommand("coins")]
 		    void CoinsCOmmand(BasePlayer player, string command, string[] args){
 		     
 		     SendReply(player,"You have "+getcoin(player.userID.ToString())+" coins.");   
 		        
 		    }
+		    
+		 [ChatCommand("normanwebshopreload")]
+		 void CoinReloadCommand(BasePlayer player, string command, string[] args){
+		     if(player.IsAdmin){
+		         SendReply(player,"Reloading Normans Web Shop config!");
+		         Loaded();
+		         SendReply(player,"Done!");
+		     } 
+		    
+		 }
 		    
 		    
 		 
@@ -75,9 +103,27 @@ namespace Oxide.Plugins
 		    [ChatCommand("shop")]
 		  void ShopCommand(BasePlayer player, string command, string[] args){
 		   
-		   SendReply(player,"To purchase items go to rust.normansprojects.org. You get coins from researching.");   
+		   SendReply(player,Config["ShopCommandResponse"].ToString());   
 		      
 		  }
+		  
+		  protected override void LoadDefaultConfig()
+            {
+            PrintWarning("Creating a new configuration file");
+            Config.Clear();
+            Config["ShopCommandResponse"] = "Null";
+            Config["StartCoins"] = 500;
+            Config["normanmysqlserver"] = "localhost";
+            Config["normanmysqldatabase"] = "rust";
+            Config["normanmysqldatabaseuser"] = "root";
+            Config["normanmysqldatabasepassword"] = "password";
+            Config["researchmoney"] = 500;
+            Config["bearkillmoney"] = 250;
+            Config["stagerkillmoney"] = 100;
+            Config["lootcratemoney"] = 5;
+            Config["craftmoney"] = 2;
+            SaveConfig();
+         }
 		
 		   
 		    [ChatCommand("claim")]
