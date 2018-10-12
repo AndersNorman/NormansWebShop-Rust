@@ -63,8 +63,14 @@ return "0";
 }
 
 echo'
- <body background="background.jpg">
  <style>
+ 
+  body{
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+ 
  #itemframe{
 	color: brown;
 	display: inline-block;
@@ -135,7 +141,7 @@ if(!isset($_SESSION['steamid'])) {
 
     include ('steamauth/userInfo.php'); //To access the $steamprofile array
 	
-	echo('<form id="userframe">');
+	echo('<center><form id="userframe">');
 	echo('<img src="'.$steamprofile['avatarmedium'].'g" alt="User avatar">');
 	 echo('<br><h1><img src="coin.ico" alt="" width="25" height="25"> <thecoins id="coins"></theitem></img></h1>');
 
@@ -148,6 +154,7 @@ if(!isset($_SESSION['steamid'])) {
 	 <button name="logout" type="submit" action="" method="get" id="disconnect">Logout</button>
 	 </form>
 	 <br>
+	 </center>
 	 ';
 
 		

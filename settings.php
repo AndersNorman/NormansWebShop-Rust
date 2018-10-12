@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "rust_players";
+$dbname = "rust";
 
 function servernameget(){
 	return $GLOBALS['servername'];

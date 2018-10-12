@@ -35,8 +35,14 @@ return "0";
 }
 
 echo'
- <body background="background.jpg">
  <style>
+ 
+ body{
+    background-image: url("background.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+ 
  #itemframe{
 	color: brown;
 	display: inline-block;
@@ -91,6 +97,24 @@ color: white;
     text-decoration: none;
     display: inline-block;
     font-size: 16px;
+
+}
+
+#disconnect2 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+	font-family: "Arial Black";
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+	position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-left: -25px;
+
 }
  </style>
  
@@ -105,7 +129,7 @@ color: white;
 
 if(!isset($_SESSION['steamid'])) {
 	echo'<center>
-	<a href="?login" class="button" id="disconnect">Login</a>
+	<a href="?login" class="button" id="disconnect2">Login</a>
 	</center>
 	';
 
@@ -113,7 +137,7 @@ if(!isset($_SESSION['steamid'])) {
 
     include ('steamauth/userInfo.php'); //To access the $steamprofile array
 	
-	echo('<form id="userframe">');
+	echo('<center><form id="userframe">');
 	echo('<img src="'.$steamprofile['avatarmedium'].'g" alt="User avatar">');
 	 echo('<br><h1><img src="coin.ico" alt="" width="25" height="25"><thecoins id="coins"></theitem></img></h1>');
 
@@ -129,7 +153,7 @@ if(!isset($_SESSION['steamid'])) {
 	 
 	  
 	 <br>
-	 ';
+	 </center>';
 
 	require("items.php");
 	
@@ -177,10 +201,11 @@ if(!isset($_SESSION['steamid'])) {
 	});
 
 	foreach($thetabs as $thetab){
-		echo'<br><h1><img src="'.$thetab["Icon"].'" alt="" width="64" height="64" style="vertical-align: middle;"></img><span style="vertical-align: middle;">'.$thetab["Tab"].'</h1></span><br>';
+		$alltoghetertext = "";
+		echo'<center><br><h1><img src="'.$thetab["Icon"].'" alt="" width="64" height="64" style="vertical-align: middle;"></img><span style="vertical-align: middle;">'.$thetab["Tab"].'</h1></span><br></center>';
 		foreach($theitems as $obj){
 			if($obj["Tab"] == $thetab["Tab"]){
-			echo'<form id="itemframe" style="width: 250" onsubmit="return false;" name="'.$obj["ShortName"].'">
+			$alltoghetertext = $alltoghetertext . '<form id="itemframe" style="width: 250" onsubmit="return false;" name="'.$obj["ShortName"].'">
 			 
 			 <font face="verdana" size="4" color="white">'.$obj["Name"].'<br><br>
 			  <img src="coin.ico" alt="" width="25" height="25"> '.$obj["Price"].'</img>
@@ -205,6 +230,8 @@ if(!isset($_SESSION['steamid'])) {
 			}
 			
 		}
+				echo("<center>".$alltoghetertext."</center>");
+
 	}
 	
 	
