@@ -148,6 +148,8 @@ if(!isset($_SESSION['steamid'])) {
 	 
 	<br>
 	<a class="btn" href="inventory.php" id="disconnect">Refund</a>
+		<a class="btn" href="history.php" id="disconnect">History</a>
+
 	 <button name="logout" type="submit" action="" method="get" id="disconnect">Logout</button>
 	 </form>
 	 

@@ -151,13 +151,15 @@ if(!isset($_SESSION['steamid'])) {
 	 
 	<br>
 	 <a class="btn" href="shop.php" id="disconnect">Shop</a>
+	 		<a class="btn" href="history.php" id="disconnect">History</a>
+
 	 <button name="logout" type="submit" action="" method="get" id="disconnect">Logout</button>
 	 </form>
 	 <br>
 	 </center>
 	 ';
 
-		
+	echo'<center>';	
 	$theitems = getinventory($steamprofile["steamid"]);
 	
 	foreach($theitems as $thearray){	
@@ -185,6 +187,7 @@ if(!isset($_SESSION['steamid'])) {
 		
 		 ';
 	}
+	echo'</center>';
   
 }  
 

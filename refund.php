@@ -1,4 +1,5 @@
 <?php
+include'historymanager.php';
 include'settings.php';
 
 function getinventory($steamid){
@@ -94,6 +95,9 @@ if ($result->num_rows > 0) {
     $amount = doubleval($row["amount"]);
 	$jsonitem = json_decode(getitemjson($row["item"]),true);
 	$price = doubleval($jsonitem["Price"]) * $amount;
+	
+	$fancyman = $jsonitem["Name"];
+	addtohistory($row['steamid'],"Player refunded the purchase of " . $fancyman . " x ".$amount." for ".$price." coins");
 	return $price;
 	}
 } else {

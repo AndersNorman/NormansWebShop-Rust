@@ -1,6 +1,28 @@
  <?php
 
+include'historymanager.php';
 include'settings.php';
+
+
+$conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+
+// sql to create table
+$sql = "CREATE TABLE PLAYER_HISTORY (
+id INT(64) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
+steamid VARCHAR(255),
+historymessage TEXT CHARACTER SET utf8,
+reg_date TIMESTAMP
+)";
+
+if ($conn->query($sql) === TRUE) {
+} else {
+}
+
+$conn->close();
 
 // Create connection
 $conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
@@ -105,12 +127,14 @@ if(isset($_POST["amount"]) && isset($_POST["itemname"]) && isset($_SESSION['stea
 	if($jsonitem != null){
 			if($coins != null){
 						
-						$amount = doubleval($amount);
+						$amount = floor(doubleval($amount));
 						$price = doubleval($jsonitem["Price"]);
 						$coins = doubleval($coins);
 						$total = $amount * $price;
-						if($total > $coins){
+						if($total > $coins || $amount < 1){
 
+						$fancyman = getitem($itemname)["Name"];
+						addtohistory($steamprofile['steamid'],"Player failed purchase of item " . $fancyman . " x ".$amount." for ".$total." coins");
 						echo'norman-1';
 						
 						
@@ -148,9 +172,12 @@ if(isset($_POST["amount"]) && isset($_POST["itemname"]) && isset($_SESSION['stea
 
 						
 						$sql = "UPDATE PLAYERS_COINS SET coins='".($coins - $total)."' WHERE steamid='".$steamprofile['steamid']."'";
+						
+						
 
 						if ($conn->query($sql) === TRUE) {
-							
+						$fancyman = getitem($itemname)["Name"];
+						addtohistory($steamprofile['steamid'],"Player purchased item " . $fancyman . " x ".$amount." for ".$total." coins");
 						} else {
 							
 						}
