@@ -35,13 +35,9 @@ return "0";
 }
 
 echo'
- <style>
+<style>
  
- body{
-    background-image: url("background.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+'.$bodycss.'
  
  #itemframe{
 	color: brown;
@@ -111,26 +107,20 @@ color: white;
     display: inline-block;
     font-size: 16px;
 	position: fixed;
+	width:120px;
     top: 50%;
     left: 50%;
-    margin-left: -25px;
+    margin-left: -100px;
 
 }
  </style>
- 
- 
-
-
- 
 ';
 
 
 
 
 if(!isset($_SESSION['steamid'])) {
-	echo'<center>
-	<a href="?login" class="button" id="disconnect2">Login</a>
-	</center>
+	echo'<center><a href="?login" class="button" id="disconnect2">Login</a></center>
 	';
 
 }  else {

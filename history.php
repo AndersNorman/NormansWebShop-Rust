@@ -1,6 +1,6 @@
-<center><div class="boxed">
+
 <?php
-include'historymanager.php';
+include'codemanager.php';
 include'settings.php';
 require 'steamauth/steamauth.php';
 
@@ -16,11 +16,7 @@ echo'
 	border-radius: 25px;
 } 
  
- body{
-    background-image: url("background.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+'.$bodycss.'
  
  #itemframe{
 	color: brown;
@@ -52,7 +48,7 @@ echo'
 	display: inline-block;
     text-align: left;
 	font-size: 115%;
-	height: 350px;
+	min-height: 350px;
 	min-width: 500px;
 	max-width: 1000px;
 
@@ -148,9 +144,10 @@ color: black;
     display: inline-block;
     font-size: 16px;
 	position: fixed;
+	width:120px;
     top: 50%;
     left: 50%;
-    margin-left: -25px;
+    margin-left: -100px;
 
 }
 </style>
@@ -166,7 +163,7 @@ if(!isset($_SESSION['steamid'])) {
 
     include ('steamauth/userInfo.php'); //To access the $steamprofile array
 	
-	echo('<form id="userframe">');
+	echo('<center><div class="boxed"><form id="userframe">');
 	echo('<img src="'.$steamprofile['avatarmedium'].'g" alt="User avatar">');
 	 echo('<br><h1><img src="coin.ico" alt="" width="25" height="25"><thecoins id="coins"></theitem></img></h1>');
 
@@ -189,17 +186,7 @@ if(!isset($_SESSION['steamid'])) {
 		<br>
 
 
-	 ';
 	
-	 
-	 
-	
-  
-}  
-
-
-?>
-
 
 <form id="textwindow"><h1 id="texter" name="pagecontainment">
 </h1></form><br>
@@ -208,7 +195,7 @@ if(!isset($_SESSION['steamid'])) {
 	<span id="pagetexter"> 1 </span><br>
 	<button onclick="nextpageminus()" value=">" id="btn" type="submit"><</button>
 	<button onclick="nextpageplus()" value=">" type="submit" id="btn">></button><br><br>
-	<input type="button" id="btn" onclick="location.href='/commands.php?command=downloadhistory';" value="Download history" />
+	<input type="button" id="btn" onclick="location.href='."'".'commands.php?command=downloadhistory'."'".';" value="Download history" />
 	</form>
 		
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
@@ -308,3 +295,13 @@ if(!isset($_SESSION['steamid'])) {
 
 </div></center>
 
+ ';
+	
+	 
+	 
+	
+  
+}  
+
+
+?>

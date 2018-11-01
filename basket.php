@@ -1,6 +1,6 @@
  <?php
 
-include'historymanager.php';
+include'codemanager.php';
 include'settings.php';
 
 
@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 }
 
 // sql to create table
-$sql = "CREATE TABLE PLAYER_HISTORY (
+$sql = "CREATE TABLE player_history (
 id INT(64) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
 steamid VARCHAR(255),
 historymessage TEXT CHARACTER SET utf8,
@@ -68,53 +68,6 @@ if ($conn->query($sql) === TRUE) {
 
 $conn->close();
 
-function getcoin($steamid){
-
-
-
-// Create connection
-$conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT id, steamid, coins FROM PLAYERS_COINS";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      if($row["steamid"] == $steamid){
-		return ($row["coins"]);  
-	  }
-    }
-} else {
-}
-$conn->close();
-return "0";
-}
-
-function getitem($shortname){
-	$cdir = scandir("jsonitems",0);
-	$cdir[0] = null;
-	$cdir[1] = null;
-	foreach($cdir as $s){
-	
-		if($s != null){
-		$myfile = fopen("jsonitems/".$s, "r") or die("Unable to open file!");
-		$contnet = fread($myfile,filesize("jsonitems/".$s));
-		$obj = json_decode($contnet,true);
-			if($obj["ShortName"] == $shortname){
-			return $obj;
-			}
-		}
-	}
-	
-	
-	return null;
-}
-
 require 'steamauth/steamauth.php';
 
 if(isset($_POST["amount"]) && isset($_POST["itemname"]) && isset($_SESSION['steamid'])){
@@ -145,51 +98,21 @@ if(isset($_POST["amount"]) && isset($_POST["itemname"]) && isset($_SESSION['stea
 						echo'norman+1';
 
 
-						// Create connection
-						$conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
-						// Check connection
-						if ($conn->connect_error) {
-							die("Connection failed: " . $conn->connect_error);
-						}
-
-						$sql = "INSERT INTO players_orders (steamid, item, amount)
-						VALUES ('".$steamprofile['steamid']."', '".$itemname."', '".$amount."')";
-
-						if ($conn->query($sql) === TRUE) {
-							
-						} else {
-							
-						}
-
-						$conn->close();
-						
-						
-						$conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
-						
-						if ($conn->connect_error) {
-							die("Connection failed: " . $conn->connect_error);
-						}
+						// add order
+						addorder($steamprofile["steamid"],$itemname,$amount);
 
 						
-						$sql = "UPDATE PLAYERS_COINS SET coins='".($coins - $total)."' WHERE steamid='".$steamprofile['steamid']."'";
+						changemoney($steamprofile["steamid"],$coins - $total);
 						
-						
-
-						if ($conn->query($sql) === TRUE) {
-						$fancyman = getitem($itemname)["Name"];
 						addtohistory($steamprofile['steamid'],"Player purchased item " . $fancyman . " x ".$amount." for ".$total." coins");
-						} else {
-							
-						}
 
-						$conn->close();
+
+						
+						
+						
+						
 						
 						}
-						
-						
-						
-						
-						
 
 			}
 		}

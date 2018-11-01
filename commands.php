@@ -1,5 +1,5 @@
 <?php
-include'historymanager.php';
+include'codemanager.php';
 include'settings.php';
 
 require 'steamauth/steamauth.php';

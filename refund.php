@@ -1,5 +1,5 @@
 <?php
-include'historymanager.php';
+include'codemanager.php';
 include'settings.php';
 
 function getinventory($steamid){
@@ -51,79 +51,6 @@ function getitemjson($shortname){
 }
 }
 
-function getcoin($steamid){
-
-
-
-// Create connection
-$conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT id, steamid, coins FROM PLAYERS_COINS";
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-      if($row["steamid"] == $steamid){
-		return ($row["coins"]);  
-	  }
-    }
-} else {
-}
-$conn->close();
-return "0";
-}
-
-function getprice($itemid){
-	
-	$conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-$sql = "SELECT * FROM players_orders WHERE id=".$itemid;
-$result = $conn->query($sql);
-
-if ($result->num_rows > 0) {
-    // output data of each row
-    while($row = $result->fetch_assoc()) {
-    $amount = doubleval($row["amount"]);
-	$jsonitem = json_decode(getitemjson($row["item"]),true);
-	$price = doubleval($jsonitem["Price"]) * $amount;
-	
-	$fancyman = $jsonitem["Name"];
-	addtohistory($row['steamid'],"Player refunded the purchase of " . $fancyman . " x ".$amount." for ".$price." coins");
-	return $price;
-	}
-} else {
-}
-$conn->close();
-	
-}
-
-function deleteitem($itemid){
-	
-	$conn = new mysqli(servernameget(), usernameget(), passwordget(), dbnameget());
-// Check connection
-if ($conn->connect_error) {
-    die("Connection failed: " . $conn->connect_error);
-}
-
-// sql to delete a record
-$sql = "DELETE FROM players_orders WHERE id=".$itemid;
-
-if ($conn->query($sql) === TRUE) {
-} else {
-}
-
-$conn->close();
-	
-}
 
 require 'steamauth/steamauth.php';
 

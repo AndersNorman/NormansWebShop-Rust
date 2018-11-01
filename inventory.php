@@ -65,11 +65,7 @@ return "0";
 echo'
  <style>
  
-  body{
-    background-image: url("background.jpg");
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-}
+'.$bodycss.'
  
  #itemframe{
 	color: brown;
@@ -126,6 +122,24 @@ color: white;
     display: inline-block;
     font-size: 16px;
 }
+
+#disconnect2 {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+	font-family: "Arial Black";
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+	position: fixed;
+	width:120px;
+    top: 50%;
+    left: 50%;
+    margin-left: -100px;
+
+}
  </style>
 
  
@@ -133,7 +147,7 @@ color: white;
 
 if(!isset($_SESSION['steamid'])) {
 	echo'<center>
-	<a href="?login" class="button" id="disconnect">Login</a>
+	<a href="?login" class="button" id="disconnect2">Login</a>
 	</center>
 	';
 
@@ -201,15 +215,17 @@ if(!isset($_SESSION['steamid'])) {
 	<script src="notify.js"></script>
 
 <script>
-
+	var loading = false;
 	function sendrefundrequest(theitem){
+	if(!loading){
+	loading = true;
 	var x = document.getElementsByName(theitem)[0].elements.namedItem("itemname").value;
 	var y = document.getElementsByName(theitem)[0].elements.namedItem("itemnameid").value;
 
 	var xhttp = new XMLHttpRequest();
 	  xhttp.onreadystatechange = function() {
 		if (this.readyState == 4 && this.status == 200) {
-
+		  loading = false;
 		  getcoins();
 		  var thereturnmessage = this.responseText;
 		  
@@ -226,6 +242,7 @@ if(!isset($_SESSION['steamid'])) {
 		  }
 		}
 	  };
+	}
 	  xhttp.open("POST", "refund.php", true);
 	  xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
 	  xhttp.send("itemnameid="+y+"&itemname="+x);
